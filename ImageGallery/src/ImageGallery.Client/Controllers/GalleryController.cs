@@ -186,7 +186,9 @@ namespace ImageGallery.Client.Controllers
 
         public async Task Logout()
         {
+            // Loggin Out of Our Web Application
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            // Logging Out of the Identity Provider
             await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }
 
