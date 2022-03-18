@@ -10,24 +10,28 @@ namespace Marvin.IDP
 {
     public static class Config
     {
-        public static IEnumerable<IdentityResource> IdentityResources =>
+        public static IEnumerable<IdentityResource> Ids =>
             new IdentityResource[]
-            {
+            { 
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
                 new IdentityResources.Address(),
+                new IdentityResource(
+                    "roles",
+                    "Your role(s)",
+                    new List<string>() { "role" })
             };
 
-        public static IEnumerable<ApiScope> ApiScopes =>
-            new ApiScope[]
+        public static IEnumerable<ApiResource> Apis =>
+            new ApiResource[] 
             { };
-
+        
         public static IEnumerable<Client> Clients =>
-            new Client[]
-            {
+            new Client[] 
+            { 
                 new Client
                 {
-                    ClientName = "Image Gallery",
+                    ClientName = "Image Gallery", 
                     ClientId = "imagegalleryclient",
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
@@ -39,17 +43,17 @@ namespace Marvin.IDP
                     {
                         "https://localhost:44389/signout-callback-oidc"
                     },
-                    AllowedScopes =
+                    AllowedScopes = 
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Address,
+                        "roles"
                     },
                     ClientSecrets =
                     {
                         new Secret("secret".Sha256())
                     }
-                }
-            };
+                } };        
     }
 }

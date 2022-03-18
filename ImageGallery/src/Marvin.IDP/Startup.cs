@@ -23,13 +23,9 @@ namespace Marvin.IDP
             // uncomment, if you want to add an MVC-based UI
             services.AddControllersWithViews();
 
-            var builder = services.AddIdentityServer(options =>
-            {
-                // see https://identityserver4.readthedocs.io/en/latest/topics/resources.html
-                options.EmitStaticAudienceClaim = true;
-            })
-                .AddInMemoryIdentityResources(Config.IdentityResources)
-                .AddInMemoryApiScopes(Config.ApiScopes)
+            var builder = services.AddIdentityServer()
+                .AddInMemoryIdentityResources(Config.Ids)
+                .AddInMemoryApiResources(Config.Apis)
                 .AddInMemoryClients(Config.Clients)
                 .AddTestUsers(TestUsers.Users);
 
@@ -47,7 +43,7 @@ namespace Marvin.IDP
             // uncomment if you want to add MVC
             app.UseStaticFiles();
             app.UseRouting();
-            
+
             app.UseIdentityServer();
 
             // uncomment, if you want to add MVC

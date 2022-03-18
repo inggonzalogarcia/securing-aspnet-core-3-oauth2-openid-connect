@@ -10,7 +10,6 @@ using Microsoft.Net.Http.Headers;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel;
 using IdentityModel;
 
 namespace ImageGallery.Client
@@ -46,6 +45,7 @@ namespace ImageGallery.Client
                 client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
             });
 
+
             services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -60,7 +60,7 @@ namespace ImageGallery.Client
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.Authority = "https://localhost:44318/";
                 options.ClientId = "imagegalleryclient";
-                options.ResponseType = "code";
+                options.ResponseType = "code";               
                 options.Scope.Add("address");
                 options.Scope.Add("roles");
                 options.ClaimActions.DeleteClaim("sid");
@@ -85,7 +85,7 @@ namespace ImageGallery.Client
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseStaticFiles();
-
+ 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
