@@ -56,7 +56,7 @@ namespace ImageGallery.Client.Controllers
                 return RedirectToAction("AccessDenied", "Authorization");
             }
 
-            throw new Exception("Problem accessing the API");         
+            throw new Exception("Problem accessing the API");             
         }
 
         public async Task<IActionResult> EditImage(Guid id)
@@ -195,6 +195,42 @@ namespace ImageGallery.Client.Controllers
 
         public async Task Logout()
         {
+            var client = _httpClientFactory.CreateClient("IDPClient");
+
+            var discoveryDocumentResponse = await client.GetDiscoveryDocumentAsync();
+            if (discoveryDocumentResponse.IsError)
+            {
+                throw new Exception(discoveryDocumentResponse.Error);
+            }
+
+            var accessTokenRevocationResponse = await client.RevokeTokenAsync(
+                new TokenRevocationRequest
+                {
+                    Address = discoveryDocumentResponse.RevocationEndpoint,
+                    ClientId = "imagegalleryclient",
+                    ClientSecret = "secret",
+                    Token = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken)
+                });
+
+            if (accessTokenRevocationResponse.IsError)
+            {
+                throw new Exception(accessTokenRevocationResponse.Error);
+            }
+
+            var refreshTokenRevocationResponse = await client.RevokeTokenAsync(
+                new TokenRevocationRequest
+                {
+                    Address = discoveryDocumentResponse.RevocationEndpoint,
+                    ClientId = "imagegalleryclient",
+                    ClientSecret = "secret",
+                    Token = await HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken)
+                });
+
+            if (refreshTokenRevocationResponse.IsError)
+            {
+                throw new Exception(accessTokenRevocationResponse.Error);
+            }
+
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
         }

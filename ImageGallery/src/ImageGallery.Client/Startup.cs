@@ -11,7 +11,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using IdentityModel;
-using ImageGallery.Client.Controllers.HttpHandlers;
+using ImageGallery.Client.HttpHandlers;
 
 namespace ImageGallery.Client
 {
@@ -32,18 +32,16 @@ namespace ImageGallery.Client
                  .AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
 
             services.AddAuthorization(authorizationOptions =>
-            {
-                authorizationOptions.AddPolicy(
-                    "CanOrderFrame",
-                    policyBuilder =>
-                    {
-                        policyBuilder.RequireAuthenticatedUser();
-                        policyBuilder.RequireClaim("country", "be");
-                        policyBuilder.RequireClaim("subscriptionleven", "PayingUser");
-                    }
-                );
-
-            });
+                {
+                   authorizationOptions.AddPolicy(
+                       "CanOrderFrame",
+                       policyBuilder =>
+                       {
+                           policyBuilder.RequireAuthenticatedUser();
+                           policyBuilder.RequireClaim("country", "be");
+                           policyBuilder.RequireClaim("subscriptionlevel", "PayingUser");
+                       });
+                });
 
             services.AddHttpContextAccessor();
 

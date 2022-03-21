@@ -37,6 +37,7 @@ namespace ImageGallery.API.Controllers
         public IActionResult GetImages()
         {
             var ownerId = User.Claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+            
             // get from repo
             var imagesFromRepo = _galleryRepository.GetImages(ownerId);
 
@@ -48,6 +49,7 @@ namespace ImageGallery.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetImage")]
+        [Authorize("MustOwnImage")]
         public IActionResult GetImage(Guid id)
         {          
             var imageFromRepo = _galleryRepository.GetImage(id);
@@ -88,6 +90,7 @@ namespace ImageGallery.API.Controllers
             // fill out the filename
             imageEntity.FileName = fileName;
 
+            // set the ownerId on the imageEntity
             var ownerId = User.Claims.FirstOrDefault(c => c.Type == "sub").Value;
             imageEntity.OwnerId = ownerId;
 
@@ -104,6 +107,7 @@ namespace ImageGallery.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize("MustOwnImage")]
         public IActionResult DeleteImage(Guid id)
         {            
             var imageFromRepo = _galleryRepository.GetImage(id);
@@ -121,6 +125,7 @@ namespace ImageGallery.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize("MustOwnImage")]
         public IActionResult UpdateImage(Guid id, 
             [FromBody] ImageForUpdate imageForUpdate)
         {
