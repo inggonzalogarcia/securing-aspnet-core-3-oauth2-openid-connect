@@ -44,6 +44,9 @@ namespace Marvin.IDP
             { 
                 new Client
                 {
+                    //IdentityTokenLifetime = 60, // 5 minutes is the default
+                    //AuthorizationCodeLifetime = 60, // 5 minutes is the default
+                    AccessTokenLifetime = 60, // default is 1 hour = 3600 second
                     ClientName = "Image Gallery", 
                     ClientId = "imagegalleryclient",
                     AllowedGrantTypes = GrantTypes.Code,
