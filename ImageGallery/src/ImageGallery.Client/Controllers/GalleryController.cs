@@ -195,6 +195,8 @@ namespace ImageGallery.Client.Controllers
 
         public async Task Logout()
         {
+            // All this section:
+            // from here
             var client = _httpClientFactory.CreateClient("IDPClient");
 
             var discoveryDocumentResponse = await client.GetDiscoveryDocumentAsync();
@@ -230,6 +232,7 @@ namespace ImageGallery.Client.Controllers
             {
                 throw new Exception(accessTokenRevocationResponse.Error);
             }
+            //to here
 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
