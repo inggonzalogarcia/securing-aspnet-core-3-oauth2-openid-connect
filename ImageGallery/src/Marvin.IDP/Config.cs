@@ -47,6 +47,11 @@ namespace Marvin.IDP
                     //IdentityTokenLifetime = 60, // 5 minutes is the default
                     //AuthorizationCodeLifetime = 60, // 5 minutes is the default
                     AccessTokenLifetime = 60, // default is 1 hour = 3600 second
+                    AllowOfflineAccess = true,
+                    //AbsoluteRefreshTokenLifetime = // default is 30 days
+                    //RefreshTokenExpiration = TokenExpiration.Sliding, //once a RefreshToken is requested, liftime is renewed
+                    //SlidingRefreshTokenLifetime = // won't be more then AbsoluteRefreshTokenLifetime
+                    UpdateAccessTokenClaimsOnRefresh = true,
                     ClientName = "Image Gallery", 
                     ClientId = "imagegalleryclient",
                     AllowedGrantTypes = GrantTypes.Code,
