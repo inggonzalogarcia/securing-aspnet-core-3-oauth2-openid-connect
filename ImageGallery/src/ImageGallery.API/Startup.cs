@@ -100,9 +100,9 @@ namespace ImageGallery.API
 
             app.UseStaticFiles();
 
-            app.UseAuthentication();
-        
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
