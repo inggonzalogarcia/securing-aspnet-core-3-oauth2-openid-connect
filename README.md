@@ -15,3 +15,8 @@ Part 8 I missed changing the number, from number 7 to 8. But is already implemen
   https://github.com/inggonzalogarcia/securing-aspnet-core-3-oauth2-openid-connect/commit/7daca6de95357f1079665dbc0e1bf99ce41c2de9
 - 7.Creating a Simple Authentication Policy (Demo 8.1)
   https://github.com/inggonzalogarcia/securing-aspnet-core-3-oauth2-openid-connect/commit/98ee83cdbc408c86298a5b1fa51cc6d3b395fed0
+
+
+
+Part 10 In Powershell: PS C:\Windows\system32> New-SelfSignedCertificate -Subject "CN=MarvinIdSrvSigningCert" -CertStoreLocation "cert:\LocalMa
+chine\My"
