@@ -20,3 +20,7 @@ Part 8 I missed changing the number, from number 7 to 8. But is already implemen
 
 Part 10 In Powershell: PS C:\Windows\system32> New-SelfSignedCertificate -Subject "CN=MarvinIdSrvSigningCert" -CertStoreLocation "cert:\LocalMa
 chine\My"
+
+// Needed for Part 10 - Persisting Configuration Data for adding a Migrations folder with a snapshot of the initial migration.
+PM> add-migration -name InitialIdentityServerConfigurationDBMigration -context ConfigurationDBContext
+
