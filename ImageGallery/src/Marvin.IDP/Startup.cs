@@ -50,6 +50,13 @@ namespace Marvin.IDP
                     builder.UseSqlServer(marvinIDPDataDBConnectionString,
                     options => options.MigrationsAssembly(migrationsAssembly));
             });
+
+            builder.AddOperationalStore(options =>
+            {
+                options.ConfigureDbContext = builder =>
+                    builder.UseSqlServer(marvinIDPDataDBConnectionString,
+                    options => options.MigrationsAssembly(migrationsAssembly));
+            });
         }
 
         public void Configure(IApplicationBuilder app)
@@ -95,6 +102,8 @@ namespace Marvin.IDP
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
+                serviceScope.ServiceProvider.GetRequiredService<PersistedGrantDbContext>().Database.Migrate();
+
                 var context = serviceScope.ServiceProvider.GetRequiredService<ConfigurationDbContext>();
                 context.Database.Migrate();
                 if (!context.Clients.Any())
