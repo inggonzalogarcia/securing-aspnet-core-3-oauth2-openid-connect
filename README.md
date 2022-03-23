@@ -24,3 +24,5 @@ chine\My"
 // Needed for Part 10 - Persisting Configuration Data for adding a Migrations folder with a snapshot of the initial migration.
 PM> add-migration -name InitialIdentityServerConfigurationDBMigration -context ConfigurationDBContext
 
+// Needed for Part 10 - Persisting Operational Data
+PM> add-migration -name InitialIdentityServerOperationalDBMigration -context PersistedGrantDbContext
